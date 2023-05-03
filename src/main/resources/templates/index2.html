@@ -11,6 +11,16 @@
      style="background-image: url('https://webmg.ru/wp-content/uploads/2022/09/i-44-38.jpeg'); height: 100vh; overflow: auto">
   <blockquote class="blockquote text-center"><h1>Опросы</h1></blockquote>
   <div class="row">
+    <blockquote class="blockquote text-center">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <a th:href="@{'/author'}"><button type="button" class="btn btn-primary" data-togge="button" aria-pressed="false" autocomplete="off">
+          Об авторе</button></a>
+        <form th:action="@{/logout}" method="post" style='float: top;'>
+          <input type="submit" class="btn btn-light" value="Выйти"/>
+        </form>
+      </div>
+
+    </blockquote>
     <blockquote class="blockquote text-center"><h4>Поиск опроса по названию или ID:</h4></blockquote>
     <div class="col-md-8 offset-md-4">
       <form th:action="@{/}">
@@ -18,7 +28,6 @@
         <input type="submit" class="btn btn-success btn-sm" value="Поиск"/>
         <input type="button" class="btn btn-warning btn-sm" value="Очистить" id="btnClear"
                onclick="clearSearch()"/>
-        <input th:action="@{/author}" type="button" class="btn btn-success btn-sm border-dark" value="Об авторе"/>
       </form>
     </div>
   </div>
@@ -37,30 +46,25 @@
       <th scope="row" class="text-black" th:text="${Survey.getAvg_time()}">Время прохождения отсутствует</th>
       <td>
         <a th:href="@{'/quiz/'+${Survey.getId()}}"><button type="button" class="btn btn-info">Пройти</button></a>
+
       </td>
     </tr>
     </tbody>
   </table>
-  <p class="text-black">
-    <script type="text/javascript">
-      function getRowsColumn() {
-        let table = document.getElementById('1')
-        let tBody = table.querySelector('tbody')
-        const count = tBody.querySelectorAll('tr').length;
-        document.write('Количество опросов в таблице: ' + count)
-      }
 
-      getRowsColumn()
-    </script>
-  </p>
-  <blockquote class="blockquote text-center">
-    <a href="/new">
-      <button type="button" class="btn btn-primary" data-togge="button" aria-pressed="false" autocomplete="off">
-        Добавить опрос
-      </button>
-    </a>
-  </blockquote>
 </div>
+<p class="text-black">
+  <script type="text/javascript">
+    function getRowsColumn() {
+      let table = document.getElementById('1')
+      let tBody = table.querySelector('tbody')
+      const count = tBody.querySelectorAll('tr').length;
+      document.write('Количество опросов в таблице: ' + count)
+    }
+
+    getRowsColumn()
+  </script>
+</p>
 <script type="text/javascript">
   function clearSearch() {
     window.location = "[[@{/}]]";

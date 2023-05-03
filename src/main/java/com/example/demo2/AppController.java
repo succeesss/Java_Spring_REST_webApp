@@ -55,7 +55,7 @@ public class AppController {
         return "new_survey";
     }
 
-    @RequestMapping("/quiz3/{id}")
+    @RequestMapping("/quiz/{id}")
     public String showQuizForm(Model model, @PathVariable(name="id")Long id){
         List<Question> listQuestions = serviceQ.findBySurveyId(id);
         Survey survey = serviceS.getByID(id);
@@ -63,7 +63,7 @@ public class AppController {
         model.addAttribute("listQuestions", listQuestions);
         model.addAttribute("Answer", answer);
         model.addAttribute("Survey", survey);
-        return "quiz3";
+        return "quiz";
     }
 
     @RequestMapping(value = "/saveQuiz", method = RequestMethod.POST)
@@ -79,7 +79,7 @@ public class AppController {
         return "redirect:/edit/"+survey.getId();
     }
 
-    @RequestMapping(value = "/author", method = RequestMethod.POST)
+    @RequestMapping(value = "/author", method = RequestMethod.GET)
     public String showAuthor(){
         return "author";
     }

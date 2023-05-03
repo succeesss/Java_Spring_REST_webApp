@@ -50,7 +50,7 @@ public class AppController {
         return "new_survey";
     }
 
-    @RequestMapping("/quiz/{id}")
+    @RequestMapping("/quiz3/{id}")
     public String showQuizForm(Model model, @PathVariable(name="id")Long id){
         List<Question> listQuestions = serviceQ.findBySurveyId(id);
         Survey survey = serviceS.getByID(id);
@@ -58,7 +58,7 @@ public class AppController {
         model.addAttribute("listQuestions", listQuestions);
         model.addAttribute("Answer", answer);
         model.addAttribute("Survey", survey);
-        return "quiz";
+        return "quiz3";
     }
 
     @RequestMapping(value = "/saveQuiz", method = RequestMethod.POST)

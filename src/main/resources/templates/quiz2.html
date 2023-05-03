@@ -14,34 +14,10 @@
 
 
 
-<div class="container py-5 px-4">
-  <form action="#" th:action="@{'/saveQuiz'}" method="POST" th:object="${listAnswers}">
-    <div class="ques-box bg-dark text-light" th:each="ques, i: ${listQuestions}">
-      <p class="title" th:text="${ques.name}"></p>
-
-      <div class="option">
-        <input type="radio" th:field="*|listAnswers[${i.index}].answer|" th:value="1" />
-        <p th:text="${ques.ans1}"></p>
-      </div>
-
-      <div class="option">
-        <input type="radio" th:field="|listAnswers[${i.index}].answer|" th:value="2" />
-        <p th:text="${ques.ans2}"></p>
-      </div>
-
-      <div class="option">
-        <input type="radio" th:field="|listAnswers[${i.index}].answer|" th:value="3" />
-        <p th:text="${ques.ans3}"></p>
-      </div>
-
-      <input type="hidden" th:name="|listAnswers[${i.index}].question_id|" th:value="${ques.surveyId}" />
-      <input type="hidden" th:name="|listAnswers[${i.index}].survey_id|" th:value="${ques.id}" />
-
-    </div>
-
-    <button type="submit" class="btn btn-danger d-block mx-auto mt-4">Submit Answer</button>
-  </form>
-</div>
+<form method="POST" action="${pageContext.request.contextPath}/question">
+  <ol type="1">
+    <th:forEach var="question" items="#$"
+  </ol>
 
 
 <!-- Bootstrap JS -->

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController { // Контроллер для отображения страниц аутентификации
+public class HomeController {
 
     @GetMapping("/login")
     public String login() {

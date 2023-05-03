@@ -7,6 +7,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -42,13 +43,13 @@ public class SecurityConfiguration {
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user =
-                org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder()
+                User.withDefaultPasswordEncoder()
                         .username("user1")
                         .password("1")
                         .roles("USER")
                         .build();
         UserDetails user2 =
-                org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder()
+                User.withDefaultPasswordEncoder()
                         .username("admin2")
                         .password("2")
                         .roles("ADMIN")

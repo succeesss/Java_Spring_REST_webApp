@@ -74,6 +74,11 @@ public class AppController {
         return "redirect:/edit/"+survey.getId();
     }
 
+    @RequestMapping(value = "/author", method = RequestMethod.POST)
+    public String showAuthor(){
+        return "author";
+    }
+
     @RequestMapping("/edit/{id}")
     public String showNewQuestion(Model model, @PathVariable(name = "id") Long id){
         List<Question> listQuestions = serviceQ.findBySurveyId(id);

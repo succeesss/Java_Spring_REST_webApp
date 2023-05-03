@@ -18,7 +18,7 @@
         <input type="submit" class="btn btn-success btn-sm" value="Поиск"/>
         <input type="button" class="btn btn-warning btn-sm" value="Очистить" id="btnClear"
                onclick="clearSearch()"/>
-        <input th:value="${'/author'}" type="button" class="btn btn-success btn-sm border-dark" value="Об авторе"/>
+        <input th:action="@{/author}" type="button" class="btn btn-success btn-sm border-dark" value="Об авторе"/>
       </form>
     </div>
   </div>

@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -40,7 +41,11 @@ public class AppController {
         List<Survey> listSurveys = serviceS.listAll(keyword);
         model.addAttribute("listSurveys", listSurveys);
         model.addAttribute("keyword", keyword);
-        return "index";
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(username.equals("admin2")){
+            return "index";
+        }
+        else {return "index2";}
     }
 
     @RequestMapping("/new")

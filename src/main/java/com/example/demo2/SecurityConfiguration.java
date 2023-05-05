@@ -26,7 +26,7 @@ public class SecurityConfiguration {
         http.cors().and().csrf().disable();
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/edit_question","/edit_survey","new_formQuestion", "new_question", "new_survey", "index", "new").hasRole("ADMIN")
+                        .requestMatchers("/edit_question","/edit_survey","new_formQuestion", "new_question", "new_survey", "index").hasRole("ADMIN")
                         .requestMatchers("/index2", "author").access(new WebExpressionAuthorizationManager("hasRole('ADMIN') or hasRole('USER')"))
                         .anyRequest().authenticated()
 

@@ -10,37 +10,41 @@
 <div class="bg-image"
      style="background-image: url('https://webmg.ru/wp-content/uploads/2022/09/i-44-38.jpeg'); height: 100vh; overflow: auto">
   <blockquote class="blockquote text-center"><h3 class="title" th:text="${Survey.name}"></h3></blockquote>
-<div class="container py-5 px-4">
-  <form action="#" th:action="@{'/saveQuiz'}" method="POST" th:object="${Answer}">
-    <div class="ques-box text-dark"  th:each="Question, i: ${listQuestions}">
+
+  <form action="#" th:action="@{'/saveQuiz'}" method="POST" th:model="aForm">
+    <div  th:each="Question, i: ${aForm.getQuestions()}">
       <blockquote class="blockquote text-center"><h5 th:text="${Question.name}"></h5></blockquote>
       <div class="form-check offset-md-5">
         <div class="option">
-        <input type="radio" th:radiogroup="${Question.name}" th:field="${Answer.answer}" th:value="1"/>
+        <input type="radio" th:field="*{aForm.answers[__${i.index}__].answer}" th:value="'1'+'/'+*{aForm.questions[__${i.index}__].surveyId}+
+        '/'+*{aForm.questions[__${i.index}__].id}"/>
         <label type="text-center"> <h6 th:text="${Question.ans1}"></h6></label>
         </div>
           <div class="option">
-        <input type="radio" th:radiogroup="${Question.name}"  th:field="${Answer.answer}" th:value="2"/>
+        <input  type="radio"  th:field="*{aForm.answers[__${i.index}__].answer}" th:value="2+'/'+*{aForm.questions[__${i.index}__].surveyId}+
+        '/'+*{aForm.questions[__${i.index}__].id}"/>
         <label type="text-center"> <h6 th:text="${Question.ans2}"></h6></label>
           </div>
             <div class="option">
-        <input type="radio" th:radiogroup="${Question.name}"  th:field="${Answer.answer}" th:value="3"/>
+        <input type="radio"  th:field="*{aForm.answers[__${i.index}__].answer}" th:value="3+'/'+*{aForm.questions[__${i.index}__].surveyId}+
+        '/'+*{aForm.questions[__${i.index}__].id}"/>
         <label type="text-center"> <h6 th:text="${Question.ans3}"></h6></label>
             </div>
               <div class="option">
-        <input type="radio" th:radiogroup="${Question.name}"  th:field="${Answer.answer}" th:value="4"/>
-        <label type="text-center"> <h6 th:text="${Question.ans4}"></h6></label>
+        <input type="radio" th:field="*{aForm.answers[__${i.index}__].answer}" th:value="4+'/'+*{aForm.questions[__${i.index}__].surveyId}+
+        '/'+*{aForm.questions[__${i.index}__].id}"/>
+        <label type="text-center"> <h6 th:text="${Question.ans4}"></h6></label></div>
               </div>
-      </div>
       <hr/>
       <p></p>
       <p></p>
       <p></p>
+
     </div>
 
     <button type="submit" class="btn btn-info d-block mx-auto mt-4">Отправить</button>
   </form>
-</div>
+
 </div>
 </body>
 </html>

@@ -59,17 +59,32 @@ public class AppController {
     public String showQuizForm(Model model, @PathVariable(name="id")Long id){
         List<Question> listQuestions = serviceQ.findBySurveyId(id);
         Survey survey = serviceS.getByID(id);
-        Answer answer = new Answer();
-        model.addAttribute("listQuestions", listQuestions);
-        model.addAttribute("Answer", answer);
+        List<Answer> answers = new ArrayList<>();
+        for (Question i:listQuestions){
+            Answer answer = new Answer();
+            answers.add(answer);
+        }
+        AnswerForm aForm = new AnswerForm();
+        aForm.setQuestions(listQuestions);
+        aForm.setAnswers(answers);
+        model.addAttribute("aForm", aForm);
         model.addAttribute("Survey", survey);
+
         return "quiz";
     }
 
     @RequestMapping(value = "/saveQuiz", method = RequestMethod.POST)
-    public String saveQuiz(@ModelAttribute("Answer") Answer answer){
-
-        serviceA.save(answer);
+    public String saveQuiz(@ModelAttribute("aForm") AnswerForm aForm){
+        Long idSurvey;
+        Long idQues;
+        for (Answer i:aForm.getAnswers()){
+            idSurvey = Long.parseLong(i.getAnswer().split("/")[1]);
+            idQues = Long.parseLong(i.getAnswer().split("/")[2]);
+            i.setAnswer(i.getAnswer().split("/")[0]);
+            i.setSurvey_id(idSurvey);
+            i.setQuestion_id(idQues);
+            serviceA.save(i);
+        }
         return "redirect:/";
     }
 
@@ -113,8 +128,8 @@ public class AppController {
     }
 
 
-    @RequestMapping(value = "/saveQuestion/{id}", method = RequestMethod.POST)
-    public String saveQuestion(@PathVariable(name = "id") Long id,@ModelAttribute("Question") Question question){
+    @RequestMapping(value = "/saveQuestion/{Surveyid}", method = RequestMethod.POST)
+    public String saveQuestion(@PathVariable(name = "Surveyid") Long id,@ModelAttribute("Question") Question question){
         question.setSurveyId(id);
         this.serviceQ.save(question);
         return "redirect:/edit/"+id;

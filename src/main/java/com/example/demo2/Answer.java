@@ -12,7 +12,7 @@ public class Answer {
     private Long id;
     private Long question_id;
     private Long survey_id;
-    private Long answer;
+    private String answer;
 
     protected Answer(){
     }
@@ -42,11 +42,11 @@ public class Answer {
         this.survey_id = survey_id;
     }
 
-    public Long getAnswer() {
+    public String getAnswer() {
         return answer;
     }
 
-    public void setAnswer(Long answer) {
+    public void setAnswer(String answer) {
         this.answer = answer;
     }
 

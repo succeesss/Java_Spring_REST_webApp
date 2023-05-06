@@ -157,4 +157,29 @@ public class AppController {
         return "new_formQuestion";
     }
 
+    @RequestMapping("/visual/{id}")
+    public String showVisual(@PathVariable(name="id")Long id, Model model){
+        VisualForm vForm = new VisualForm();
+        Question question = serviceQ.getByID(id);
+        List<Integer> values = new ArrayList<>();
+        List <String> titles = new ArrayList<>();
+
+        for(int j = 1; j<=4; j++){
+            values.add(serviceA.findByAnswerAndQuestion_id(String.valueOf(j), question.getId()).size()) ;
+        }
+            titles.add(question.getAns1());
+            titles.add(question.getAns2());
+            titles.add(question.getAns3());
+            titles.add(question.getAns4());
+
+            vForm.answers.add(new ArrayList<Integer>(values));
+
+
+
+        vForm.setQuestion(question);
+        model.addAttribute("vForm", vForm);
+
+        return "visual";
+    }
+
 }

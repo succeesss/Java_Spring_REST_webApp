@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Гистограмма</title>
+  <script src="https://www.google.com/jsapi"></script>
+  <style type="text/css">
+    #bg {
+      background-image: url('https://webmg.ru/wp-content/uploads/2022/09/i-44-38.jpeg');
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    html {
+      display: table;
+      margin: auto;
+    }
+
+    body {
+      margin: 100px;
+    }
+    #histog {
+      width: 1000px;
+      height: 1000px;
+      position: relative;
+    }
+
+
+  </style>
+</head>
+<body>
+
+<table id="1" class="ui-helper-hidden" style="display:none;">
+  <tbody>
+  <div th:each="Answer, i: ${vForm.getAnswers()}" class="table-tr">
+    <th scope="row" class="table-th" th:text="${Answer[0]}"></th>
+    <th scope="row" class="table-th" th:text="${Answer[1]}"></th>
+    <th scope="row" class="table-th" th:text="${Answer[2]}"></th>
+    <th scope="row" class="table-th" th:text="${Answer[3]}"></th>
+    <th scope="row" class="table-th" th:text="${vForm.question.ans1}"></th>
+    <th scope="row" class="table-th" th:text="${vForm.question.ans2}"></th>
+    <th scope="row" class="table-th" th:text="${vForm.question.ans3}"></th>
+    <th scope="row" class="table-th" th:text="${vForm.question.ans4}"></th>
+    <th scope="row" class="table-th" th:text="${vForm.question.name}"></th>
+
+  </div>
+  </tbody>
+</table>
+
+</div>
+<div class="container" id="histog">
+  <canvas id="hist" width="400" height="200"></canvas>
+  <a th:href="@{'/edit/' +${vForm.question.getSurveyId()}}">
+    <button type="button" class="btn btn-warning btn-sm" data-togge="button" aria-pressed="false" autocomplete="off">
+      Вернуться на главную страницу
+    </button>
+  </a>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script type="text/javascript">
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  labels = []
+  data = []
+
+  data[0] = document.getElementsByClassName('table-th')[0].textContent;
+  data[1] = document.getElementsByClassName('table-th')[1].textContent;
+  data[2] = document.getElementsByClassName('table-th')[2].textContent;
+  data[3] = document.getElementsByClassName('table-th')[3].textContent;
+
+  labels[0] = document.getElementsByClassName('table-th')[4].textContent;
+  labels[1] = document.getElementsByClassName('table-th')[5].textContent;
+  labels[2] = document.getElementsByClassName('table-th')[6].textContent;
+  labels[3] = document.getElementsByClassName('table-th')[7].textContent;
+  text = document.getElementsByClassName('table-th')[8].textContent;
+  let colors = [];
+  for (let i = 0; i < labels.length; i++) {
+    let temp = 'rgba(' + getRandomInt(0, 256) + ', ' + getRandomInt(0, 256) + ', ' + getRandomInt(0, 256) + ', 1)';
+    while (colors.includes(temp)) {
+      temp = 'rgba(' + getRandomInt(0, 256) + ', ' + getRandomInt(0, 256) + ', ' + getRandomInt(0, 256) + ', 1)';
+    }
+
+    colors[i] = temp;
+  }
+
+  let dataset = {
+    label: 'Количество ответов',
+    data: data,
+    backgroundColor: colors,
+    borderWidth: 1,
+  }
+
+
+  let ctx = document.getElementById('hist').getContext('2d');
+  let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [dataset],
+    },
+    options: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: text,
+        position: 'top',
+        fontSize: 24,
+        padding: 20,
+        fontColor: "black",
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true,
+            stepSize: 1,
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Количество ответов',
+            fontSize: 18,
+            fontColor: "black"
+          },
+        }],
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Ответы',
+            fontSize: 18,
+            fontColor: "black"
+          },
+        }],
+      },
+    },
+  });
+</script>
+
+</body>
+</html>

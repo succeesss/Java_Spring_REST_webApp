@@ -47,8 +47,7 @@
       <th scope="row" class="text-black" th:text="${Survey.getAvg_time()}">Время прохождения отсутствует</th>
       <td>
         <a th:href="@{'/quiz/'+${Survey.getId()}}"><button type="button" class="btn btn-info">Пройти</button></a>
-        <a th:href="@{'/visual/'+${Survey.getId()}}"><button type="button" class="btn btn-info" >Визуализировать</button></a>
-        <a th:href="@{'/edit/'+${Survey.getId()}}"><button type="button" class="btn btn-info">Редактировать</button></a>
+        <a th:href="@{'/edit/'+${Survey.getId()}}"><button type="button" class="btn btn-info">Просмотр</button></a>
         <a th:href="@{'/delete/'+${Survey.getId()}}"><button type="button" class="btn btn-danger ">Удалить</button></a>
       </td>
     </tr>
@@ -61,19 +60,20 @@
       </button>
     </a>
   </blockquote>
-</div>
-<p class="text-black">
-  <script type="text/javascript">
-    function getRowsColumn() {
-      let table = document.getElementById('1')
-      let tBody = table.querySelector('tbody')
-      const count = tBody.querySelectorAll('tr').length;
-      document.write('Количество опросов в таблице: ' + count)
-    }
+  <p class="text-black">
+    <script type="text/javascript">
+      function getRowsColumn() {
+        let table = document.getElementById('1')
+        let tBody = table.querySelector('tbody')
+        const count = tBody.querySelectorAll('tr').length;
+        document.write('Количество опросов в таблице: ' + count)
+      }
 
-    getRowsColumn()
-  </script>
-</p>
+      getRowsColumn()
+    </script>
+  </p>
+</div>
+
 <script type="text/javascript">
   function clearSearch() {
     window.location = "[[@{/}]]";

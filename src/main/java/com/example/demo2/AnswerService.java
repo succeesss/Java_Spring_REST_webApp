@@ -36,4 +36,6 @@ public class AnswerService {
     public void deleteByID(Long id) {
         this.repoA.deleteById(id);
     }
+
+    public List<Answer> findByAnswerAndQuestion_id(String str, Long id){return this.repoA.findByAnswerAndQuestion_idOrderById(str, id);}
 }

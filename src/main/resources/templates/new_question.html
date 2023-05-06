@@ -32,6 +32,7 @@
       <th scope="row" class="text-black" th:text="${Question.getAns3()}">Ответ №3 отсутствует</th>
       <th scope="row" class="text-black" th:text="${Question.getAns4()}">Ответ №4 отсутствует</th>
       <td>
+        <a th:href="@{'/visual/'+${Question.getId()}}"><button type="button" class="btn btn-info" >Визуализировать</button></a>
         <a th:href="@{'/editQuestion/'+${Question.getId()}}"><button type="button" class="btn btn-info">Редактировать</button></a>
         <a th:href="@{'/deleteQuestion/'+${Question.getId()}}"><button type="button" class="btn btn-danger">Удалить</button></a>
       </td>

@@ -9,7 +9,7 @@
 <body>
 <div class="bg-image"
      style="background-image: url('https://webmg.ru/wp-content/uploads/2022/09/i-44-38.jpeg'); height: 100vh; overflow: hidden">
-  <blockquote class="blockquote text-center"><h1>Добавить опрос</h1></blockquote>
+  <blockquote class="blockquote text-center"><h1>Редактировать вопрос</h1></blockquote>
   <div class="row">
     <div class="col-md-8 offset-md-4">
       <form action="#" th:action="@{'/saveQuestion/' +${Question.getSurveyId()}}" th:object="${Question}" method="post">

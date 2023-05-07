@@ -16,11 +16,8 @@ public class Question {
     private String ans3;
     private String ans4;
 
-
-
    protected Question(){
    }
-
 
     public Long getId() {
         return id;

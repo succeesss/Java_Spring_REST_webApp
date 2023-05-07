@@ -1,11 +1,9 @@
 package com.example.demo2;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 
 @Service
 public class AnswerService {
@@ -14,8 +12,6 @@ public class AnswerService {
 
     @Autowired
     public AnswerService(AnswerRepository repoA){this.repoA = repoA;}
-
-
 
     public void save(Answer answer){
         this.repoA.save(answer);

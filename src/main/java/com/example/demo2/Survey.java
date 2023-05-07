@@ -1,6 +1,5 @@
 package com.example.demo2;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,8 +15,6 @@ public class Survey {
 
     protected Survey() {
     }
-
-
 
     public Long getId() {
         return id;

@@ -9,7 +9,6 @@ public class VisualForm {
     List<List> answers = new ArrayList<>();
     Question question = new Question();
 
-
     public List<List> getAnswers() {
         return answers;
     }

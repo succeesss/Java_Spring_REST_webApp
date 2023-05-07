@@ -2,9 +2,6 @@ package com.example.demo2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-
 import java.util.List;
 
 @Service
@@ -14,7 +11,6 @@ public class SurveyService {
     private SurveyRepository repoS;
 
     public SurveyService(){}
-
 
     public List<Survey> listAll(String keyword){ //Коллекция и метод отвечающая за поиск и фильтр в нашей системе
         if (keyword != null){ // Если ключевое слово = null, то вызываем метод из первого return (вывод всех значений)

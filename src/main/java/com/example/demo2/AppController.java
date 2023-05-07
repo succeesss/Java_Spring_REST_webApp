@@ -36,6 +36,12 @@ public class AppController {
         this.serviceA = serviceA;
     }
 
+    /***
+     *
+     * @param model загружаем атрибуты: все опросы, ключевое слово - для поиска
+     * @param keyword - ключевое слово
+     * @return
+     */
     @RequestMapping("/")
     public String viewHomePage(Model model, @Param("keyword") String keyword){
         List<Survey> listSurveys = serviceS.listAll(keyword);
@@ -48,6 +54,7 @@ public class AppController {
         else {return "index2";}
     }
 
+    // создание нового опроса
     @RequestMapping("/new")
     public String showNewSurvey(Model model){
         Survey survey = new Survey();
@@ -55,6 +62,12 @@ public class AppController {
         return "new_survey";
     }
 
+    /***
+     *
+     * @param model загружаем атрибуты: aForm(содержит все вопросы) и потом заполняем ее ответами, которые даст пользователь
+     * @param id - id опроса, который мы проходим
+     * @return
+     */
     @RequestMapping("/quiz/{id}")
     public String showQuizForm(Model model, @PathVariable(name="id")Long id){
         List<Question> listQuestions = serviceQ.findBySurveyId(id);
@@ -73,6 +86,12 @@ public class AppController {
         return "quiz";
     }
 
+    /***
+     *
+     * @param aForm - достаем из ответа (пример 2/33/4 (где 2 - ответ на вопрос, 33 - id опроса, 4 - id вопроса)) и распределяем по таблице и записываем в БД
+     * @return
+     */
+
     @RequestMapping(value = "/saveQuiz", method = RequestMethod.POST)
     public String saveQuiz(@ModelAttribute("aForm") AnswerForm aForm){
         Long idSurvey;
@@ -88,17 +107,25 @@ public class AppController {
         return "redirect:/";
     }
 
+    //сохранение опроса
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveSurvey(@ModelAttribute("Survey") Survey survey){
         this.serviceS.save(survey);
         return "redirect:/edit/"+survey.getId();
     }
 
+    // страница об авторе
     @RequestMapping(value = "/author", method = RequestMethod.GET)
     public String showAuthor(){
         return "author";
     }
 
+    /***
+     *
+     * @param model
+     * @param id id опроса
+     * @return возвращаем страницу со всеми вопросами, где можно их редактировать/посмотреть визуализацию и тд.
+     */
     @RequestMapping("/edit/{id}")
     public String showNewQuestion(Model model, @PathVariable(name = "id") Long id){
         List<Question> listQuestions = serviceQ.findBySurveyId(id);
@@ -111,6 +138,7 @@ public class AppController {
         return "new_question";
     }
 
+    // редактирование вопроса
     @RequestMapping("/editQuestion/{id}")
     public ModelAndView showEditQuestion(@PathVariable(name = "id") Long id){
         ModelAndView mav = new ModelAndView("edit_question");
@@ -119,6 +147,7 @@ public class AppController {
         return mav;
     }
 
+    // редактирование опроса
     @RequestMapping("/editSurvey/{id}")
     public ModelAndView showSurveyQuestion(@PathVariable(name = "id") Long id){
         ModelAndView mav = new ModelAndView("edit_survey");
@@ -127,7 +156,7 @@ public class AppController {
         return mav;
     }
 
-
+    // сохранение вопроса
     @RequestMapping(value = "/saveQuestion/{Surveyid}", method = RequestMethod.POST)
     public String saveQuestion(@PathVariable(name = "Surveyid") Long id,@ModelAttribute("Question") Question question){
         question.setSurveyId(id);
@@ -135,12 +164,14 @@ public class AppController {
         return "redirect:/edit/"+id;
     }
 
+    // удаление опроса
     @RequestMapping("/delete/{id}")
     public String deleteSurvey(@PathVariable(name = "id") Long id){
         serviceS.deleteByID(id);
         return "redirect:/";
     }
 
+    // удаление вопроса
     @RequestMapping("/deleteQuestion/{id}")
     public String deleteQuestion(HttpServletRequest request, @PathVariable(name = "id") Long id){
         serviceQ.deleteByID(id);
@@ -148,6 +179,7 @@ public class AppController {
         return "redirect:"+referer;
     }
 
+    // создание нового вопроса
     @RequestMapping("/new_formquestion/{id}")
     public String showNewFormQuestion(@PathVariable(name = "id") Long id, Model model){
         Question question = new Question();
@@ -157,6 +189,12 @@ public class AppController {
         return "new_formQuestion";
     }
 
+    /***
+     * страница с визуализацией ответов на один вопрос
+     * @param id - id вопроса
+     * @param model - vForm - содержит вопрос и список, с количеством ответов на каждый вариант ответа
+     * @return
+     */
     @RequestMapping("/visual/{id}")
     public String showVisual(@PathVariable(name="id")Long id, Model model){
         VisualForm vForm = new VisualForm();
@@ -164,7 +202,7 @@ public class AppController {
         List<Integer> values = new ArrayList<>();
         List <String> titles = new ArrayList<>();
 
-        for(int j = 1; j<=4; j++){
+        for(int j = 1; j<=4; j++){   // получение количества ответов на каждый вариант ответа
             values.add(serviceA.findByAnswerAndQuestion_id(String.valueOf(j), question.getId()).size()) ;
         }
             titles.add(question.getAns1());

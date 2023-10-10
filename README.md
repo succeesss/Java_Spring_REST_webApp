@@ -61,4 +61,5 @@ ORM в приложениях. Hibernate позволяет создавать, 
 объектов в базах данных.
 
 ![image](https://github.com/succeesss/Java_Spring_REST_webApp/assets/126602263/29fc7e36-3259-4a45-8da3-9a4ec5384a44)
+![image](https://github.com/succeesss/Java_Spring_REST_webApp/assets/126602263/22b36bd6-80f0-4357-b05a-bb348e5830d8)
 

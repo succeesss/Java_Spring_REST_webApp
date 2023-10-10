@@ -60,4 +60,5 @@ ORM в приложениях. Hibernate позволяет создавать, 
 отображением (ORM) и управления постоянным состоянием 
 объектов в базах данных.
 
+![image](https://github.com/succeesss/Java_Spring_REST_webApp/assets/126602263/29fc7e36-3259-4a45-8da3-9a4ec5384a44)
 
